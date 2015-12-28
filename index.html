@@ -1,0 +1,159 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>color chart</title>
+    <meta name="description" content="description text">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="sortable-theme-dark.css" />
+<script src="sortable.min.js"></script>
+    <style>
+        
+    </style>
+    </head>
+    <body>
+    
+<table border="2" padding="5px" margin="5px" id="tabletable" cellspacing="5" class="sortable-theme-dark" data-sortable>
+    <thead>
+                    <tr>
+                        <th>Hex</th>
+                        <th>Red</th>
+                        <th>Green</th>
+                        <th>Blue</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+</table>
+        stuffs
+        <div id="element">Testing</div>
+         <table class="sortable-theme-dark" data-sortable>
+                <thead>
+                    <tr>
+                        <th data-sortable="false">Browser</th>
+                        <th data-sorted="true" data-sorted-direction="descending">Usage</th>
+                        <th>Initial release</th>
+                        <th>Stable version</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Chrome</td>
+                        <td>42.68%</td>
+                        <td data-value="2008">September 2, 2008</td>
+                        <td>31.0.1650.57</td>
+                    </tr>
+                    <tr>
+                        <td>Internet Explorer</td>
+                        <td>25.44%</td>
+                        <td data-value="1995">August 16, 1995</td>
+                        <td>11.0.1</td>
+                    </tr>
+                    <tr>
+                        <td>Firefox</td>
+                        <td>20.01%</td>
+                        <td data-value="2002">September 23, 2002</td>
+                        <td>25.0.1</td>
+                    </tr>
+                    <tr>
+                        <td>Safari</td>
+                        <td>8.39%</td>
+                        <td data-value="2003">January 7, 2003</td>
+                        <td>7.0</td>
+                    </tr>
+                    <tr>
+                        <td>Opera</td>
+                        <td>1.03%</td>
+                        <td data-value="1994">Late 1994</td>
+                        <td>18.0.1284.49</td>
+                    </tr>
+                    <tr>
+                        <td>Other</td>
+                        <td data-value="0">2.44%</td>
+                        <td data-value="-1"></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        <script>
+          var el = document.getElementById('element');
+var body = document.getElementsByTagName('body');
+el.innerHTML = '<p><a id="clickme" href="#">Click me</a></p>';
+document.getElementById('clickme').onclick = function (e) {
+    e.preventDefault();
+    document.body.innerHTML +='<div style="position:absolute;width:20px;height:30px;background:#000;"></div>';
+}
+
+
+var createDiv = {
+    byHex: function(hexcolor){return '<div style="width:20px;height:30px;background:' + color + ';"></div>'}
+};
+
+
+            var whateva = function(){
+                var arr = [];
+                for (var r = 0;r<256;r++){
+                 for (var g = 0;g<256;g++){
+                    for (var b = 0;b<256;b++){
+                    var clr = {r:r,g:g,b:b,hex:rgbToHex(r,g,b)};
+                    //console.log(JSON.stringify(clr));
+                    arr.push(clr);
+                    
+                }
+                }   
+                }
+                console.log(arr.length);
+                    var tblBody = document.getElementById('tabletable');
+                for (var i = 0; i < arr.length-1; i += 10000) {
+
+        var newRow = tblBody.insertRow(-1);
+        for (var j = 0; j < 5; j++) {
+            var newCell = newRow.insertCell(j);
+            if (j==0){
+                newCell.innerHTML = arr[i].hex;//rgbToHex(arr[i].r,arr[i].g,arr[i].b);
+            
+            } else if (j==4){
+                newCell.innerHTML = '<div style="width:50px;height:30px;background:' + arr[i].hex + ';"></div>';
+            } else if (j == 1){
+                newCell.innerHTML = arr[i].r;
+            } else if (j == 2){
+                newCell.innerHTML = arr[i].g;
+            } else if (j == 3){
+                newCell.innerHTML = arr[i].b;
+            }else {
+               newCell.innerHTML = '<div style="width:20px;height:30px;background:rgba(255,255,0,1);"></div>'; 
+            }
+            
+            
+        }
+    }
+            };
+            
+            
+            whateva();
+            
+                function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+        </script>
+    </body>
+    </html>
